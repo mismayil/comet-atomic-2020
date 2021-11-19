@@ -8,7 +8,7 @@ def sample_kg(args):
     random.seed(args.random_seed)
 
     data_file = args.input_file
-    data = read_csv(data_file, delimiter="\t")
+    data = read_csv(data_file, delimiter=args.delimiter)
 
     prefixes = {}
 
@@ -58,6 +58,7 @@ def main():
     parser.add_argument('--output-file', type=str, help='Dataset filename')
     parser.add_argument('--random-seed', type=int, default=30, help='Random seed')
     parser.add_argument('--sample-size', type=int, default=5000, help='Dev size')
+    parser.add_argument('--delimiter', type=str, default='\t', help='Delimiter for input file')
 
     args = parser.parse_args()
 

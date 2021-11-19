@@ -13,5 +13,7 @@ elasticsearch
 pandas
 pytest
 conllu
-spacy
+spacy<3.0.0
 inflect
+transformers
+wandb

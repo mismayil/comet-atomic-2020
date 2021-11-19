@@ -8,6 +8,8 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader, RandomSampler, SequentialSampler
 
+from optparse import OptionParser
+
 # Importing the T5 modules from huggingface/transformers
 from transformers import T5Tokenizer, T5ForConditionalGeneration, GPT2Tokenizer, GPT2Model, \
     GPT2LMHeadModel
@@ -261,4 +263,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = OptionParser()
+    parser.add_option("-t", "--test_install",
+                      action="store_true", default=False,
+                      help="Test install, without running any modeling code.")
+
+    (options, args) = parser.parse_args()
+    if not options.test_install:
+        main()
