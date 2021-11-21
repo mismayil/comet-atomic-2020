@@ -6,6 +6,8 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader, RandomSampler, SequentialSampler
 import json
 from typing import List
+import sys
+sys.path.append('../..')
 
 # Importing the GPT2 modules from huggingface/transformers
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
@@ -205,7 +207,7 @@ def main():
     val_loader_mini = DataLoader(val_set_mini, **val_params, drop_last=True)
     
     logging.info("Loading model from {}".format(model_name))
-    model = GPT2LMHeadModel.from_pretrained(model_name, use_cdn=False)
+    model = GPT2LMHeadModel.from_pretrained(model_name)
     logging.info("Move model to device {}".format(device))
     model = model.to(device)
     model.resize_token_embeddings(len(tokenizer))

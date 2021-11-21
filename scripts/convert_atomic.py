@@ -1,7 +1,7 @@
 import sys
 import csv
 
-writer = csv.DictWriter(open('../data/atomic_test.tsv', 'w'), delimiter='\t', fieldnames=['relation', 'head_event', 'tail_event'])
+writer = csv.DictWriter(open(sys.argv[2], 'w'), delimiter='\t', fieldnames=['relation', 'head_event', 'tail_event'])
 writer.writeheader()
 
 with open(sys.argv[1]) as file:
