@@ -34,7 +34,8 @@ nlp = spacy.load("en")
 print(device)
 print(torch.cuda.device_count())
 
-KGS_TO_EVAL = ["atomic", "atomic2020", "conceptnet", "transomcs"]
+# KGS_TO_EVAL = ["atomic", "atomic2020", "conceptnet", "transomcs"]
+KGS_TO_EVAL = ["atomic2020"]
 
 
 def write_items(items: List[str], output_file):
@@ -208,6 +209,7 @@ def main():
     config.NUM_BEAMS = int(os.environ.get('NUM_BEAMS', "10"))
     config.NUM_SEQUENCES = int(os.environ.get('NUM_SEQUENCES', "10"))
     config.STOP_TOKEN = "."
+    config.TEST_FILENAME = str(os.environ.get('TEST_FILENAME', "test_sampled_prefixes.jsonl"))
 
     torch.manual_seed(config.SEED) # pytorch random seed
     np.random.seed(config.SEED) # numpy random seed
@@ -221,7 +223,7 @@ def main():
     wandb.watch(model, log="all")
 
     for kg in KGS_TO_EVAL:
-        fname = os.path.join(config.DATA_PATH, kg, "test_sampled_prefixes.jsonl")
+        fname = os.path.join(config.DATA_PATH, kg, config.TEST_FILENAME)
         print("\n\n===== Evaluating {} ===== {} \n\n".format(kg, fname))
         generations_for_fact = []
         with open(fname) as f:

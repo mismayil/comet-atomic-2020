@@ -1,4 +1,6 @@
 #!/bin/bash
+python -m spacy download en
+
 mkdir -p data
 (
     cd data
@@ -15,6 +17,9 @@ mkdir -p data
 )
 
 # Prepare atomic2020 for training
-python scripts/convert_atomic.py ../data/atomic2020/test.tsv ../data/atomic2020/atomic_test.tsv
-python scripts/convert_atomic.py ../data/atomic2020/train.tsv ../data/atomic2020/atomic_train.tsv
-python scripts/convert_atomic.py ../data/atomic2020/dev.tsv ../data/atomic2020/atomic_dev.tsv
+python scripts/convert_atomic.py data/atomic2020/test.tsv data/atomic2020/atomic_test.tsv
+python scripts/convert_atomic.py data/atomic2020/train.tsv data/atomic2020/atomic_train.tsv
+python scripts/convert_atomic.py data/atomic2020/dev.tsv data/atomic2020/atomic_dev.tsv
+
+# Prepare atomic2020 test file
+python scripts/convert_atomic_test.py system_eval/test.tsv data/atomic2020/test_atomic2020.jsonl

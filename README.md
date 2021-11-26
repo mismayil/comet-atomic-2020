@@ -63,3 +63,10 @@ COMET-ATOMIC 2020 (codebase) is licensed under the Apache License 2.0. The ATOMI
 
 ## Contact
 Email: jenah[at]allenai[dot]org
+
+
+## Run evaluations
+## GPT2-zeroshot
+OUTPUT_DIR=data/ DATA_PATH=data TEST_FILENAME=test_atomic2020.jsonl python models/gpt2_zeroshot/gpt2-zeroshot.py
+python scripts/convert_gpt2_outputs.py data/atomic2020-zeroshot-generations.jsonl system_eval/atomic2020-zeroshot-predictions.jsonl
+python automatic_eval.py --input_file atomic2020-zeroshot-predictions.jsonl
