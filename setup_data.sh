@@ -1,5 +1,6 @@
 #!/bin/bash
 python -m spacy download en
+python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt')"
 
 mkdir -p data
 (
@@ -16,10 +17,15 @@ mkdir -p data
     mv atomic2020_data-feb2021 atomic2020
 )
 
-# Prepare atomic2020 for training
+# Prepare atomic2020 for GPT-2 training
 python scripts/convert_atomic.py data/atomic2020/test.tsv data/atomic2020/atomic_test.tsv
 python scripts/convert_atomic.py data/atomic2020/train.tsv data/atomic2020/atomic_train.tsv
 python scripts/convert_atomic.py data/atomic2020/dev.tsv data/atomic2020/atomic_dev.tsv
+
+# Prepare atomic2020 for BART training
+python scripts/convert_atomic_bart.py data/atomic2020/train.tsv data/atomic2020/train.source data/atomic2020/train.target
+python scripts/convert_atomic_bart.py data/atomic2020/test.tsv data/atomic2020/test.source data/atomic2020/test.target
+python scripts/convert_atomic_bart.py data/atomic2020/dev.tsv data/atomic2020/val.source data/atomic2020/val.target
 
 # Prepare atomic2020 test file
 python scripts/convert_atomic_test.py system_eval/test.tsv data/atomic2020/test_atomic2020.jsonl

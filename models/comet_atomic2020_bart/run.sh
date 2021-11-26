@@ -12,7 +12,7 @@ CUDA_VISIBLE_DEVICES=0 python finetune.py \
     --n_val 100 \
     --val_check_interval 1.0 \
     --sortish_sampler \
-    --data_dir ./data/atomic_2020_samples \
+    --data_dir ../../data/atomic2020 \
     --train_batch_size=32 \
     --eval_batch_size=32 \
     --output_dir ./results/ \

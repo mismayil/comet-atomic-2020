@@ -35,7 +35,6 @@ We include code used in expirements in COMET-ATOMIC2020 for reproducibility, eas
 ### Setup
 
 Run `pip install -r requirements.txt` to install requirements for your Python instance. We recommend [Conda](https://www.anaconda.com/) to manage Python installs. Our codebases is on Python 3.
-Install spacy EN corpus: `python -m spacy download en`.
 It's recommended that you test that your enviroment is set up correctly before running modeling code. You can do this via `python models/comet_atomic2020_gpt2/comet_gpt2.py --test_install`
 
 The code for modeling is located in `mosaic/infra/modeling`. `mosaic/datasets/KGDataset` is used to convert the ATOMIC2020 CSV into an HuggingFace `Datasets` object.
