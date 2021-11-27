@@ -69,3 +69,10 @@ Email: jenah[at]allenai[dot]org
 OUTPUT_DIR=data/ DATA_PATH=data TEST_FILENAME=test_atomic2020.jsonl python models/gpt2_zeroshot/gpt2-zeroshot.py
 python scripts/convert_gpt2_outputs.py data/atomic2020-zeroshot-generations.jsonl system_eval/atomic2020-zeroshot-predictions.jsonl
 python automatic_eval.py --input_file atomic2020-zeroshot-predictions.jsonl
+
+## COMET-GPT2
+
+
+## COMET-BART
+./models/comet_atomic2020_bart/run.sh
+python generation_example.py ../../data/atomic2020/test_atomic2020.jsonl ../../system_eval/atomic2020-comet-bart-predictions.jsonl

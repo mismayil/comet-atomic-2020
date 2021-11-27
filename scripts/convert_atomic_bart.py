@@ -6,8 +6,9 @@ with open(sys.argv[1]) as file:
     sources = []
     targets = []
     for row in reader:
-        sources.append(f"{row['head']} {row['relation']}")
-        targets.append(row['tail'])
+        if len(row['tail']) > 0:
+            sources.append(f"{row['head']} {row['relation']}")
+            targets.append(row['tail'])
     with open(sys.argv[2], 'w') as f:
         f.writelines('\n'.join(sources))
     with open(sys.argv[3], 'w') as f:

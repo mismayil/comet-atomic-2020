@@ -5,7 +5,7 @@ from tqdm import tqdm
 from pathlib import Path
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from utils import calculate_rouge, use_task_specific_params, calculate_bleu_score, trim_batch
-
+import sys
 
 def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
@@ -107,20 +107,40 @@ all_relations = [
     "xWant",
     ]
 
+def write_items(output_file, items):
+    with open(output_file, 'w') as f:
+        for concept in items:
+            f.write(concept + "\n")
+    f.close()
+
+
+def write_jsonl(f, d):
+    write_items(f, [json.dumps(r) for r in d])
+
 if __name__ == "__main__":
 
     # sample usage
     print("model loading ...")
-    comet = Comet("./comet-atomic_2020_BART")
+    comet = Comet("./results/best_tfmr")
     comet.model.zero_grad()
     print("model loaded")
 
     queries = []
-    head = "PersonX eats an apple"
-    rel = "xNeed"
-    query = "{} {} [GEN]".format(head, rel)
-    queries.append(query)
-    print(queries)
+    prefixes = []
+    # head = "PersonX eats an apple"
+    # rel = "xNeed"
+    with open(sys.argv[1]) as input_file:
+        for line in input_file:
+            query_json = json.loads(line)
+            prefixes.append(query_json)
+            query = "{} {} [GEN]".format(query_json['head'], query_json['relation'])
+            queries.append(query)
+    # print(queries)
     results = comet.generate(queries, decode_method="beam", num_generate=5)
-    print(results)
+
+    predictions = []
+    for prefix, result in zip(prefixes, results):
+        predictions.append({'head': prefix['head'], 'relation': prefix['relation'], 'tails': [r.strip() for r in result], 'greedy': result[0].strip()})
+    
+    write_jsonl(sys.argv[2], predictions)
 
