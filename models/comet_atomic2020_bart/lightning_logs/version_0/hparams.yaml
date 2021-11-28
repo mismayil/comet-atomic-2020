@@ -65,6 +65,7 @@ sortish_sampler: true
 src_lang: ''
 task: summarization
 terminate_on_nan: false
+test_checkpoint: ./results/val_avg_rouge2=0.0094-step_count=2.ckpt
 test_max_target_length: 24
 test_percent_check: null
 tgt_lang: ''

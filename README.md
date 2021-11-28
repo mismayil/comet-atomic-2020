@@ -75,4 +75,5 @@ python automatic_eval.py --input_file atomic2020-zeroshot-predictions.jsonl
 
 ## COMET-BART
 ./models/comet_atomic2020_bart/run.sh
-python generation_example.py ../../data/atomic2020/test_atomic2020.jsonl ../../system_eval/atomic2020-comet-bart-predictions.jsonl
+CUDA_VISIBLE_DEVICES=1 python generation_example.py ../../data/atomic2020/test_atomic2020.jsonl ../../system_eval/atomic2020-comet-bart-predictions.jsonl
+python automatic_eval.py --input_file atomic2020-comet-bart-predictions.jsonl 

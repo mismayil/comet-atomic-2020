@@ -2,7 +2,7 @@
 # This is an example for train (finetune) COMET-ATOMIC2020 with BART
 # Please specify --data_dir that contains [train|val|test].[source|target].
 
-CUDA_VISIBLE_DEVICES=0 python finetune.py \
+CUDA_VISIBLE_DEVICES=1 python finetune.py \
     --task summarization \
     --num_workers 2 \
     --learning_rate=1e-5 \

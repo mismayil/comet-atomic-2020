@@ -140,7 +140,7 @@ if __name__ == "__main__":
 
     predictions = []
     for prefix, result in zip(prefixes, results):
-        predictions.append({'head': prefix['head'], 'relation': prefix['relation'], 'tails': [r.strip() for r in result], 'greedy': result[0].strip()})
+        predictions.append({'head': prefix['head'], 'relation': prefix['relation'], 'tails': prefix['tails'], 'generations': [r.strip() for r in result], 'greedy': result[0].strip()})
     
     write_jsonl(sys.argv[2], predictions)
 
