@@ -64,14 +64,20 @@ COMET-ATOMIC 2020 (codebase) is licensed under the Apache License 2.0. The ATOMI
 Email: jenah[at]allenai[dot]org
 
 
-## Run evaluations
+## Run experiments
 ## GPT2-zeroshot
 OUTPUT_DIR=data/ DATA_PATH=data TEST_FILENAME=test_atomic2020.jsonl python models/gpt2_zeroshot/gpt2-zeroshot.py
 python scripts/convert_gpt2_outputs.py data/atomic2020-zeroshot-generations.jsonl system_eval/atomic2020-zeroshot-predictions.jsonl
 python automatic_eval.py --input_file atomic2020-zeroshot-predictions.jsonl
 
 ## COMET-GPT2
+DO_TRAIN=True DO_PRED=True OUT_DIR=./ PRED_FILE=../../data/atomic2020/test_atomic2020.jsonl TRAIN_DATA_PATH=../../data/atomic2020/atomic_train.tsv DEV_DATA_PATH=../../data/atomic2020/atomic_dev.tsv TEST_DATA_PATH=../../data/atomic2020/atomic_test.tsv python comet_gpt2.py
 
+CUDA_VISIBLE_DEVICES=1 PRED_FILE=../../data/atomic2020/test_atomic2020.jsonl GPT2_MODEL=./checkpoint_0 TRAIN_DATA_PATH=../../data/atomic2020/atomic_train.tsv TEST_DATA_PATH=../../data/atomic2020/atomic_test.tsv DEV_DATA_PATH=../../data/atomic2020/atomic_dev.tsv OUT_DIR=./ python comet_gpt2.py
+
+python scripts/convert_comet_gpt2_outputs.py models/comet_atomic2020_gpt2/pred_generations.jsonl system_eval/atomic2020-comet-gpt2-predictions.jsonl
+
+python automatic_eval.py --input_file atomic2020-comet-gpt2-predictions.jsonl
 
 ## COMET-BART
 ./models/comet_atomic2020_bart/run.sh
