@@ -77,3 +77,9 @@ python automatic_eval.py --input_file atomic2020-zeroshot-predictions.jsonl
 ./models/comet_atomic2020_bart/run.sh
 CUDA_VISIBLE_DEVICES=1 python generation_example.py ../../data/atomic2020/test_atomic2020.jsonl ../../system_eval/atomic2020-comet-bart-predictions.jsonl
 python automatic_eval.py --input_file atomic2020-comet-bart-predictions.jsonl 
+
+## Problems
+- Dependency issues (versions not pinned, missing deps etc.)
+- Poor documentation on setting up the experiments (expected data format, where to get data, how to run experiments etc.)
+- Some minor code problems (expecting env variable to be present, importing from local dir etc.)
+- COMET-BART experiment not reproducible
